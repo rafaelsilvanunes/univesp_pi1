@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - Professor Sala{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Professor - Sala</h3>
+    {% if user.is_authenticated %}
+        <p>Bem-vindo, {{ user.username }} -  {{ user.get_full_name }} ({{ user.email }}) - <a href="/logout/">SAIR!</a></p>
+    {% else %}
+        <a href="/login/">Fazer Login para Continuar!</a>
+    {% endif %}
+    <br><br>
+    <a href="{% url 'salas' %}"><button>Salas</button></a>
+</div>
+<div class="card">
+    <div class="error-box">
+        {{ form.errors }}
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <label for="nome">Nome da Sala</label>
+        <input type="text" id="nome" name="nome" maxlength="100" value="{{ form.nome.value|default:'' }}" placeholder="Nome da Sala">
+        <label for="codigo">Código da Sala</label>
+        <input type="text" id="codigo"name="codigo" maxlength="10" value="{{ form.codigo.value|default:'' }}" placeholder="Código da Sala">
+        <label for="ativa">Sala Ativa?</label>
+        <input type="checkbox" id="ativa" name="ativa" {% if form.ativa.value|default:False %}checked{% endif %}>
+        <button type="submit">Salvar</button>
+    </form>
+</div>
+{% endblock %}

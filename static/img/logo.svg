@@ -1,0 +1,29 @@
+<svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-label="Logo Voz para Todos">
+    <rect width="720" height="720" rx="120" fill="#ffffff" />
+    <g transform="translate(84 74)">
+        <path d="M86 468 L118 377 C79 334 56 278 56 216 C56 88 160 0 291 0 C422 0 526 88 526 216 C526 344 422 432 291 432 C244 432 201 421 164 401 L86 468 Z" fill="none" stroke="#0b3670" stroke-width="30" stroke-linejoin="round" stroke-linecap="round" />
+        <path d="M164 348 C206 332 250 332 291 360 C332 332 376 332 418 348" fill="none" stroke="#2f91df" stroke-width="24" stroke-linecap="round" />
+        <path d="M153 386 C206 371 250 375 291 405 C332 375 376 371 429 386" fill="none" stroke="#0b3670" stroke-width="18" stroke-linecap="round" opacity=".95" />
+        <g>
+            <circle cx="177" cy="245" r="34" fill="#2f91df" />
+            <path d="M128 345 C130 296 150 274 177 274 C204 274 224 296 226 345 Z" fill="#2f91df" />
+            <circle cx="291" cy="206" r="40" fill="#0b3670" />
+            <path d="M233 354 C235 292 258 253 291 253 C322 253 344 289 349 343 L291 385 Z" fill="#0b3670" />
+            <path d="M341 337 C360 314 377 276 388 212" fill="none" stroke="#0b3670" stroke-width="31" stroke-linecap="round" />
+            <circle cx="407" cy="245" r="34" fill="#2fb8b1" />
+            <path d="M358 345 C360 296 380 274 407 274 C434 274 454 296 456 345 Z" fill="#2fb8b1" />
+        </g>
+        <g fill="none" stroke="#2f91df" stroke-linecap="round">
+            <path d="M250 141 C272 123 310 123 332 141" stroke-width="20" />
+            <path d="M225 103 C263 72 319 72 357 103" stroke-width="18" />
+            <path d="M199 65 C254 18 328 18 383 65" stroke-width="17" />
+        </g>
+    </g>
+    <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+        <text x="360" y="617" font-size="74" font-weight="800">
+            <tspan fill="#0b3670">Voz</tspan>
+            <tspan fill="#2f91df" font-weight="500">para</tspan>
+            <tspan fill="#0b3670">Todos</tspan>
+        </text>
+    </g>
+</svg>

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - Professor Questões{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Professor - Sala {{ sala.id }}: {{ sala.nome }} - Questões</h3>
+    {% if user.is_authenticated %}
+        <p>Bem-vindo, {{ user.username }} -  {{ user.get_full_name }} ({{ user.email }}) - <a href="/logout/">SAIR!</a></p>
+    {% else %}
+        <a href="/login/">Fazer Login para Continuar!</a>
+    {% endif %}
+    <br><br>
+    <a href="{% url 'salas' %}"><button>Salas</button></a>
+    <a href="{% url 'nova_questao' sala.id %}"><button>Nova Questão</button></a>
+    <a href="{% url 'resultado_sala' sala.id %}"><button>Resultados</button></a>
+</div>
+{% for q in questoes %}
+<div class="card">
+    <p>Tipo: {{ q.get_tipo_display }} {% if q.tipo == "objetiva" %} - {{ q.get_tipo_correcao_display }} {% endif %}</p>
+    <br>    
+    <h3>{{ q.texto }}</h3>
+    {% if q.tipo == "objetiva" %}
+    <br>
+        {% if q.alternativa_a %}
+        <div>
+            {% if q.correta_a %}
+                <span style="color:lightgreen;">✔</span>
+            {% endif %}
+            A) {{ q.alternativa_a }}
+        </div>
+        {% endif %}
+        {% if q.alternativa_b %}
+        <div>
+            {% if q.correta_b %}
+                <span style="color:lightgreen;">✔</span>
+            {% endif %}
+            B) {{ q.alternativa_b }}
+        </div>
+        {% endif %}      
+        {% if q.alternativa_c %}
+        <div>
+            {% if q.correta_c %}
+                <span style="color:lightgreen;">✔</span>
+            {% endif %}
+            C) {{ q.alternativa_c }}
+        </div>
+        {% endif %}
+        {% if q.alternativa_d %}
+        <div>
+            {% if q.correta_d %}
+                <span style="color:lightgreen;">✔</span>
+            {% endif %}
+            D) {{ q.alternativa_d }}
+        </div>
+        {% endif %}
+        {% if q.alternativa_e %}
+        <div>
+            {% if q.correta_e %}
+                <span style="color:lightgreen;">✔</span>
+            {% endif %}
+            E) {{ q.alternativa_e }}
+        </div>
+        {% endif %}
+    {% endif %}
+    <br>
+    {% if q.feedback %}
+        <div style="background:#222; padding:10px; border-radius:10px;">
+            <strong>Feedback:</strong>
+            <br>
+            {{ q.feedback }}
+        </div>
+    {% endif %}
+    <br>
+    <a href="{% url 'editar_questao' sala.id q.id %}"><button>Editar</button></a>
+    <a href="{% url 'excluir_questao' sala.id q.id %}"><button onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button></a>
+</div>
+{% endfor %}
+{% endblock %}

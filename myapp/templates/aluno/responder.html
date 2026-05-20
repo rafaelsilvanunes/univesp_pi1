@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - Aluno Questões{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Aluno - Questões</h2>
+    <h3>Professor: {{ sala.professor.first_name }} - Sala: {{ sala.nome }} - Aluno: {{ aluno_nome|title }}</h3>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="tempo_total" id="tempo_total" value="0">
+    {% for q in questoes %}
+    <div class="card">
+        <p><i>Tipo: {{ q.tipo|title }} - {{ q.tipo_correcao|title }}</i></p>
+        <h3>{{ forloop.counter }}. {{ q.texto }}</h3>
+        <br>
+        {% if q.tipo == 'aberta' %}
+            <textarea name="q{{ q.id }}" rows="5" required></textarea>
+        {% else %}
+            <div class="alternativa">
+                {% if q.alternativa_a %}
+                <label>
+                    A)<input type="{% if q.tipo_correcao == 'unica' %}radio{% else %}checkbox{% endif %}" name="q{{ q.id }}" value="A">
+                    {{ q.alternativa_a }}
+                </label>
+                {% endif %}
+                {% if q.alternativa_b %}
+                <label>
+                    B) <input type="{% if q.tipo_correcao == 'unica' %}radio{% else %}checkbox{% endif %}" name="q{{ q.id }}" value="B">
+                    {{ q.alternativa_b }}
+                </label>
+                {% endif %}
+                {% if q.alternativa_c %}
+                <label>
+                    C) <input type="{% if q.tipo_correcao == 'unica' %}radio{% else %}checkbox{% endif %}" name="q{{ q.id }}" value="C">
+                    {{ q.alternativa_c }}
+                </label>
+                {% endif %}
+                {% if q.alternativa_d %}
+                <label>
+                    D) <input type="{% if q.tipo_correcao == 'unica' %}radio{% else %}checkbox{% endif %}" name="q{{ q.id }}" value="D">
+                    {{ q.alternativa_d }}
+                </label>
+                {% endif %}
+                {% if q.alternativa_e %}
+                <label>
+                    E) <input type="{% if q.tipo_correcao == 'unica' %}radio{% else %}checkbox{% endif %}" name="q{{ q.id }}" value="E">
+                    {{ q.alternativa_e }}
+                </label>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <button type="submit">Enviar Respostas</button>
+</form>
+
+<script>
+const inicio = Date.now();
+document.querySelector('form').addEventListener('submit', function () {
+    const tempo = Math.floor((Date.now() - inicio) / 1000);
+    document.getElementById('tempo_total').value = tempo;
+});
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - Login Aluno{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Login Aluno</h3>
+    <form method="post">
+        {% csrf_token %}
+        <label for="sala">Código da Sala</label>
+        <input type="text" name="sala" placeholder="Código da Sala" value="{{ codigo|default:'' }}">
+        <label for="aluno">Seu Nome ou RA</label>
+        <input type="text" name="aluno" placeholder="Seu Nome ou RA">
+        <button type="submit">Entrar</button>
+    </form>
+</div>
+{% endblock %}

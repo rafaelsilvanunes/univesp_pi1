@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - Professor Salas{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Professor - Salas</h3>
+    {% if user.is_authenticated %}
+        <p>Bem-vindo, {{ user.username }} -  {{ user.get_full_name }} ({{ user.email }}) - <a href="/logout/">SAIR!</a></p>
+    {% else %}
+        <a href="/login/">Fazer Login para Continuar!</a>
+    {% endif %}
+    <br><br>
+    <a href="{% url 'nova_sala' %}"><button>Criar Nova Sala</button></a>
+ </div>
+
+{% for sala in salas %}
+<div class="card">
+    ID da Sala: <strong>{{ sala.id }}</strong><br>
+    Nome da Sala: <strong>{{ sala.nome }}</strong><br>
+    Codigo da Sala: <strong>{{ sala.codigo }}</strong><br> 
+    Sala Ativa: <strong>{{ sala.ativa }}</strong>
+    <br><br>
+    <a href="{% url 'editar_sala' sala.id %}"><button>Editar</button></a>
+    <a href="{% url 'excluir_sala' sala.id %}"><button onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button></a>
+    <a href="{% url 'questoes' sala.id %}"><button>Questões</button></a>
+    <a href="{% url 'resultado_sala' sala.id %}"><button>Resultados</button></a>
+    <a href="{% url 'qrcode' sala.id %}"><button>QR Code</button></a>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - Aluno Resultado{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Aluno - Resultado</h2>
+    <h3>Professor: {{ sala.professor.first_name }} - Sala: {{ sala.nome }} - Aluno: {{ aluno_nome|title }}</h3>
+    <br>
+    <div class="estatisticas">
+        <p><strong>Total Avaliadas:</strong> {{ total }}</p>
+        <p><strong>Acertos:</strong> {{ acertos }}</p>
+        <p><strong>Erros:</strong> {{ erros }}</p>
+        <p><strong>Percentual:</strong> {{ percentual }}%</p>
+        <p><strong>Tempo Total:</strong> {{ tempo_total }} segundos</p>
+    </div>
+</div>
+{% for r in respostas %}
+<div class="card questao-card">
+    <p><i>Tipo: {{ r.questao.tipo|title }} - {{ r.questao.tipo_correcao|title }}</i></p>
+    <h3>{{ forloop.counter }}. {{ r.questao.texto }}</h3>
+    {% if r.questao.tipo == 'aberta' %}
+        <div class="resposta-aberta">
+            <strong>Sua Resposta:</strong><br>
+            {{ r.texto_resposta|default:"Não respondida" }}
+        </div>
+        <div class="nao-avaliada">
+            Questão aberta não possui correção automática
+        </div>
+    {% else %}
+        {% for alt in r.alternativas %}
+            <div class="alternativa {{ alt.css }}">
+
+                {% if r.questao.tipo_correcao == 'nenhuma' %}
+                    {% if alt.marcada %}
+                        ✅
+                    {% endif %}
+                {% endif %}
+                <!-- errada marcada -->
+                {% if r.questao.tipo_correcao != 'nenhuma' %}
+                    {% if alt.marcada and not alt.correta %}
+                        ❌
+                    {% endif %}
+                {% endif %}
+                <!-- marcada correta -->
+                {% if alt.marcada and alt.correta %}
+                    ✅
+                {% endif %}
+                <strong>{{ alt.letra }})</strong>
+                {{ alt.texto }}
+            </div>
+        {% endfor %}
+        {% if r.questao.tipo_correcao == 'nenhuma' %}
+            <div class="nao-avaliada">
+                Questão sem correção automática
+            </div>
+        {% else %}
+            {% if r.correta %}
+                <div class="resultado correta-box">
+                    ✔ Você acertou esta questão
+                </div>
+            {% else %}
+                <div class="resultado errada-box">
+                    ✘ Você errou esta questão
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if r.questao.feedback %}
+    <div class="feedback">
+        <strong>Explicação:</strong><br>
+        {{ r.questao.feedback }}
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+
+<style>
+.estatisticas p{
+    margin:8px 0;
+}
+
+/* CARD QUESTÃO */
+.questao-card{
+    margin-top:20px;
+}
+
+/* ALTERNATIVAS */
+.alternativa{
+    padding:12px;
+    margin:8px 0;
+    border-radius:8px;
+    background:#222;
+    border:1px solid #333;
+}
+
+/* correta */
+.correta{
+    background:#1b5e20;
+    border-color:#4caf50;
+    color:#fff;
+}
+
+/* errada */
+.errada{
+    background:#7f0000;
+    border-color:#f44336;
+    color:#fff;
+}
+
+/* RESULTADO FINAL */
+.resultado{
+    margin-top:15px;
+    padding:12px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.correta-box{
+    background:#1b5e20;
+    color:#fff;
+}
+
+.errada-box{
+    background:#b71c1c;
+    color:#fff;
+}
+
+/* QUESTÃO ABERTA */
+.resposta-aberta{
+    margin-top:10px;
+    padding:12px;
+    border-radius:8px;
+    background:#222;
+}
+
+/* SEM CORREÇÃO */
+.nao-avaliada{
+    margin-top:10px;
+    padding:10px;
+    border-radius:8px;
+    background:#444;
+    color:#ddd;
+}
+
+/* FEEDBACK */
+.feedback{
+    margin-top:15px;
+    padding:12px;
+    border-radius:8px;
+    background:#1e1e1e;
+    border-left:4px solid #4caf50;
+}
+
+/* TEMPO */
+.tempo{
+    margin-top:10px;
+    font-size:14px;
+    color:#aaa;
+}
+</style>
+
+{% endblock %}

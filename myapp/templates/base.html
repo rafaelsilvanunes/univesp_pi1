@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Voz para Todos{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<header>
+    {% block header %}Voz para Todos{% endblock %}
+</header>
+
+<div class="container">
+    {% for message in messages %}
+        <div class="card">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</div>
+
+<script src="{% static 'js/app.js' %}"></script>
+{% block extra_js %}{% endblock %}
+
+
+<footer style="display:flex;justify-content:center;align-items:center;margin-top:20px;">
+    {% block footer %}<a href="{% url 'home' %}"><img src="{% static 'img/logo.svg' %}" alt="Logo" style="height:150px; width:auto;"></a>{% endblock %}
+</footer>
+
+</body>
+</html>

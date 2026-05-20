@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - LGPD{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Após Ler e Concordar com os Termos Acesse:</h3>
+    <a href="{% url 'login' %}"><button>Professor</button></a>
+    <br>
+    <a href="{% url 'login_aluno' %}"><button>Aluno</button></a>
+</div>
+<div class="card">
+    <h2>Voz para Todos - Privacidade e LGPD</h2>
+    <p><i>Informações sobre tratamento de dados pessoais, transparência, segurança e direitos dos titulares.</i></p>
+    <h3>Resumo para o usuário</h3>
+    <p>O Voz para Todos utiliza dados mínimos para permitir a participação em atividades educacionais. O nome do aluno, o código da sessão e as respostas enviadas são usados para registrar a participação e apresentar os resultados ao professor. A instituição responsável deve manter transparência sobre o uso dos dados e disponibilizar canal para solicitações relacionadas à LGPD.</p>
+</div>
+<div class="card">
+    <h3>1. Finalidade da seção</h3>
+    <p><i>Esta seção apresenta, em linguagem clara e objetiva, como o sistema Voz para Todos trata dados pessoais durante o uso das funcionalidades de participação em sessões educacionais, envio de respostas e acompanhamento pelo professor.</i></p>
+    <p>O objetivo é garantir transparência aos alunos, professores, administradores e responsáveis pela instituição quanto ao uso dos dados pessoais no ambiente digital.</p>
+</div>
+<div class="card">
+    <h3>2. Dados pessoais tratados</h3>
+    <p><i>O sistema pode tratar os seguintes dados pessoais:</i></p>
+    <ul>
+        <li>Nome informado pelo aluno ao entrar em uma sessão.</li>
+        <li>Código da sessão acessada.</li>
+        <li>Respostas enviadas pelo aluno em perguntas abertas ou de múltipla escolha.</li>
+        <li>Identificador técnico do participante gerado pelo sistema.</li>
+        <li>Dados de login dos professores e administradores, quando aplicável.</li>
+        <li>Registros técnicos necessários ao funcionamento, segurança e auditoria da aplicação.</li>
+    </ul>
+</div>
+<div class="card">
+    <h3>3. Finalidades do tratamento</h3>
+    <p><i>Os dados são tratados para:</i></p>
+    <ul>
+        <li>Permitir que o aluno participe de uma sessão educacional.</li>
+        <li>Associar respostas ao participante durante uma atividade.</li>
+        <li>Exibir ao professor os resultados da pergunta ativa.</li>
+        <li>Gerar estatísticas de participação e respostas.</li>
+        <li>Controlar acesso de professores e administradores.</li>
+        <li>Manter a segurança, integridade e disponibilidade do sistema.</li>
+    </ul>
+</div>
+<div class="card">
+    <h3>4. Princípios aplicados</h3>
+    <p><i>O Voz para Todos deve observar os princípios da LGPD, especialmente:</i></p>
+    <ul>
+        <li><strong>Finalidade:</strong> uso dos dados para fins educacionais e operacionais definidos.</li>
+        <li><strong>Adequação:</strong> compatibilidade entre os dados tratados e a atividade proposta.</li>
+        <li><strong>Necessidade:</strong> coleta apenas dos dados mínimos necessários.</li>
+        <li><strong>Transparência:</strong> informação clara sobre o uso dos dados.</li>
+        <li><strong>Segurança:</strong> adoção de medidas técnicas e administrativas de proteção.</li>
+        <li><strong>Prevenção:</strong> redução de riscos de acessos indevidos ou uso inadequado.</li>
+        <li><strong>Responsabilização:</strong> manutenção de práticas demonstráveis de conformidade.</li>
+    </ul>
+</div>
+<div class="card">
+    <h3>5. Base legal sugerida</h3>
+    <p><i>A definição da base legal deve ser validada pela instituição responsável pelo uso do sistema. Em contexto educacional, podem ser avaliadas, conforme o caso:</i></p>
+    <ul>
+        <li>Execução de políticas, contratos ou atividades educacionais.</li>
+        <li>Legítimo interesse, quando aplicável e mediante avaliação de proporcionalidade.</li>
+        <li>Consentimento, quando a instituição entender necessário.</li>
+        <li>Cumprimento de obrigação legal ou regulatória, quando houver exigência aplicável.</li>
+    </ul>
+    <p><u>Esta seção não substitui análise jurídica específica. A instituição controladora deve validar a base legal adequada conforme seu contexto, público atendido e finalidade pedagógica.</u></p>
+</div>
+<div class="card">
+    <h3>6. Compartilhamento de dados</h3>
+    <p>Os dados podem ser tratados por serviços tecnológicos necessários ao funcionamento do sistema, como provedor de autenticação, banco de dados, hospedagem e infraestrutura de aplicação.</p>
+    <p>O compartilhamento deve se limitar ao necessário para funcionamento, segurança, armazenamento e suporte técnico da solução.</p>
+</div>
+<div class="card">
+    <h3>7. Retenção e eliminação</h3>
+    <p>Os dados devem ser mantidos somente pelo período necessário ao cumprimento das finalidades educacionais, administrativas ou legais.</p>
+    <p><i>A instituição responsável deve definir uma política de retenção, considerando:</i></p>
+    <ul>
+        <li>Período da atividade educacional.</li>
+        <li>Necessidade de revisão pedagógica.</li>
+        <li>Auditoria ou prestação de contas.</li>
+        <li>Solicitação de eliminação pelo titular, quando aplicável.</li>
+    </ul>
+</div>
+<div class="card">
+    <h3>8. Direitos dos titulares</h3>
+    <p><i>Os titulares de dados pessoais podem solicitar, conforme aplicável:</i></p>
+    <ul>
+        <li>Confirmação da existência de tratamento.</li>
+        <li>Acesso aos dados pessoais.</li>
+        <li>Correção de dados incompletos, inexatos ou desatualizados.</li>
+        <li>Anonimização, bloqueio ou eliminação de dados desnecessários ou excessivos.</li>
+        <li>Informações sobre compartilhamento de dados.</li>
+        <li>Revogação do consentimento, quando esta for a base legal utilizada.</li>
+    </ul>
+</div>
+<div class="card">
+    <h3>9. Segurança da informação</h3>
+    <p><i>O sistema deve adotar medidas técnicas e administrativas para proteger os dados pessoais contra acessos não autorizados, perda, alteração, comunicação indevida ou qualquer forma de tratamento inadequado.</i></p>
+    <ul>
+        <li>Controle de acesso para professores e administradores.</li>
+        <li>Uso de autenticação para áreas restritas.</li>
+        <li>Minimização dos dados coletados dos alunos.</li>
+        <li>Proteção das credenciais de acesso.</li>
+        <li>Revisão periódica das permissões e funções do sistema.</li>
+    </ul>
+</div>
+<div class="card">
+    <h3>10. Dados de crianças e adolescentes</h3>
+    <p>Caso o sistema seja utilizado com crianças ou adolescentes, a instituição responsável deve observar cuidados reforçados, compatíveis com o melhor interesse do menor, com a finalidade pedagógica e com as autorizações necessárias conforme o contexto de uso.</p>
+    <p><u>Recomenda-se que a instituição mantenha orientações específicas para professores, responsáveis e equipe pedagógica quando houver participação de menores de idade.</u></p>
+</div>
+<div class="card">
+    <h3>11. Controlador, operador e encarregado</h3>
+    <p>A instituição que define as finalidades e meios de tratamento tende a atuar como controladora dos dados. Prestadores de serviços tecnológicos podem atuar como operadores, conforme a relação contratual e técnica estabelecida.</p>
+    <p>A identificação do encarregado pelo tratamento de dados pessoais deve ser disponibilizada pela instituição responsável, quando aplicável.</p>
+    <p><u>Canal de contato da instituição / encarregado</u></p>
+    <p>Alunos do Eixo Computação da Univesp - Projeto Integrado I Grupo 8 - 1 Semestre de 2026</p>
+</div>
+<div class="card">
+    <h3>12. Registro de boas práticas</h3>
+    <p><i>Para governança e prestação de contas, recomenda-se que a instituição mantenha registros mínimos sobre:</i></p>
+    <ul>
+        <li>Finalidade do uso da ferramenta.</li>
+        <li>Tipos de dados tratados.</li>
+        <li>Perfis de acesso.</li>
+        <li>Prazo de retenção.</li>
+        <li>Medidas de segurança adotadas.</li>
+        <li>Procedimento para atendimento aos titulares.</li>
+    </ul>
+</div>
+<style>
+.card h2, h3 {
+    margin-bottom: 20px;
+}
+
+.card p {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    text-align: justify;
+}
+
+.card ul {
+    padding-left: 30px;
+    margin-bottom: 16px;
+}
+
+.card li {
+    font-size: 1rem;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - Professor Questão{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Professor - Sala {{ sala.id }}: {{ sala.nome }} - Questão</h3>
+    {% if user.is_authenticated %}
+        <p>Bem-vindo, {{ user.username }} -  {{ user.get_full_name }} ({{ user.email }}) - <a href="/logout/">SAIR!</a></p>
+    {% else %}
+        <a href="/login/">Fazer Login para Continuar!</a>
+    {% endif %}
+    <br><br>
+    <a href="{% url 'salas' %}"><button>Salas</button></a>
+    <a href="{% url 'questoes' sala.id %}"><button>Questões</button></a>
+</div>
+{% if form.non_field_errors %}
+<div class="card">
+    <div class="error-box">
+        {% for error in form.non_field_errors %}
+            <p style="color:red;">Erro: {{ form.errors }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        <h3>Tipo da Questão</h3>
+        <select name="tipo" id="tipo">
+            <option value="aberta" {% if questao.tipo == "aberta" %}selected{% endif %}>Aberta</option>
+            <option value="objetiva" {% if questao.tipo != "aberta" %}selected{% endif %}>Objetiva</option>
+        </select>
+        <br><br>
+        <h3>Pergunta</h3>
+        <textarea name="texto" rows="5" required>{{ questao.texto|default:'' }}</textarea>
+        <br><br>
+        <h3>Feedback</h3>
+        <textarea name="feedback" rows="4">{{ questao.feedback|default:'' }}</textarea>
+        <br><br>
+        <div id="objetiva_box">
+            <h3>Tipo de Correção</h3>
+            <select name="tipo_correcao" id="tipo_correcao">
+                <option value="nenhuma" {% if questao.tipo_correcao == "nenhuma" %}selected{% endif %}>Sem correta</option>
+                <option value="unica" {% if questao.tipo_correcao == "unica" %}selected{% endif %}>Uma correta</option>
+                <option value="multipla" {% if questao.tipo_correcao == "multipla" %}selected{% endif %}>Múltiplas corretas</option>
+            </select>
+            <br><br>
+            <h3>Alternativas</h3>
+
+            <div class="alternativa">
+
+            <label>A) <input type="checkbox" name="correta_a" {% if questao.correta_a %}checked{% endif %} >
+                <input type="text" name="alternativa_a" value="{{ questao.alternativa_a }}" placeholder="Alternativa A">
+            </label>
+            <br><br>
+            <label>B) <input type="checkbox" name="correta_b" {% if questao.correta_b %}checked{% endif %} >
+                <input type="text" name="alternativa_b" value="{{ questao.alternativa_b }}" placeholder="Alternativa B">
+            </label>
+            <br><br>
+            <label>C) <input type="checkbox" name="correta_c" {% if questao.correta_c %}checked{% endif %} >
+                <input type="text" name="alternativa_c" value="{{ questao.alternativa_c }}" placeholder="Alternativa C" >
+            </label>
+            <br><br>
+            <label>D) <input type="checkbox" name="correta_d" {% if questao.correta_d %}checked{% endif %} >
+                <input type="text" name="alternativa_d" value="{{ questao.alternativa_d }}" placeholder="Alternativa D" >
+            </label>
+            <br><br>
+            <label>E) <input type="checkbox" name="correta_e" {% if questao.correta_e %}checked{% endif %} >
+                <input type="text" name="alternativa_e" value="{{ questao.alternativa_e }}" placeholder="Alternativa E" >
+            </label>
+        </div>
+        </div>
+        <br>
+        <button type="submit">Salvar Questão</button>
+    </form>
+</div>
+
+<script>
+const tipo = document.getElementById('tipo');
+const objetivaBox = document.getElementById('objetiva_box');
+
+function toggle(){
+    if(tipo.value === 'aberta'){
+        objetivaBox.style.display = 'none';
+    } else {
+        objetivaBox.style.display = 'block';
+    }
+}
+
+tipo.addEventListener('change', toggle);
+
+toggle();
+</script>
+{% endblock %}

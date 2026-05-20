@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - Início{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Escolha o Modo de Acesso:</h2>
+    <br><br>
+    <a href="{% url 'login' %}"><button>Professor</button></a>
+    <br><br><br>
+    <h3>Ou</h3>
+    <br><br>
+    <a href="{% url 'login_aluno' %}"><button>Aluno</button></a>
+    <br><br><br>
+    <h3>Ou</h3>
+    <br><br>
+    <a href="{% url 'lgpd' %}"><button>Sobre Termos LGPD</button></a>
+</div>
+{% endblock %}

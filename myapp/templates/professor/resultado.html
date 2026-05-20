@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+
+{% block title %}Voz para Todos - Professor Resultado{% endblock %}
+
+{% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="card">
+    <h3>Professor - Sala {{ sala.id }}: {{ sala.nome }} - Resultado</h3>
+    {% if user.is_authenticated %}
+        <p>Bem-vindo, {{ user.username }} -  {{ user.get_full_name }} ({{ user.email }}) - <a href="/logout/">SAIR!</a></p>
+    {% else %}
+        <a href="/login/">Fazer Login para Continuar!</a>
+    {% endif %}
+    <br><br>
+    <a href="{% url 'salas' %}"><button>Salas</button></a>
+    <a href="{% url 'questoes' sala.id %}"><button>Questões</button></a>
+</div>
+<div class="card">
+    <h2>Ranking de Alunos</h2>
+    <table class="tabela">
+        <tr>
+            <th>#</th>
+            <th>Aluno</th>
+            <th>Acertos</th>
+            <th>Erros</th>
+            <th>%</th>
+            <th>Tempo</th>
+        </tr>
+        {% for nome, dados in ranking_alunos %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ nome }}</td>
+            <td class="verde">{{ dados.acertos }}</td>
+            <td class="vermelho">{{ dados.erros }}</td>
+            <td>{{ dados.percentual }}%</td>
+            <td>{{ dados.tempo }}s</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="card">
+    <h2>Questões com Mais Erros</h2>
+    <table class="tabela">
+        <tr>
+            <th>#</th>
+            <th>Questão</th>
+            <th>Acertos</th>
+            <th>Erros</th>
+            <th>% Acerto</th>
+        </tr>
+        {% for q in ranking_questoes %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ q.texto }}</td>
+            <td class="verde">{{ q.acertos }}</td>
+            <td class="vermelho">{{ q.erros }}</td>
+            <td>{{ q.percentual }}%</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% for q in dados_questoes %}
+<div class="card">
+    <p>Tipo: {{ q.tipo|title }} - {{ q.tipo_correcao|title }}</p>
+    <h3>{{ forloop.counter }}. {{ q.texto }}</h3>
+    <span class="badge bgverde">Resposta Correta: {% if q.corretas_texto %}{{ q.corretas_texto|join:" | " }}{% else %}Sem correta{% endif %}</span>
+    <div class="metricas">
+        <span class="badge bgazul">Total: {{ q.total }}</span>
+        <span class="badge bgverde">Acertos: {{ q.acertos }}</span>
+        <span class="badge bgvermelho">Erros: {{ q.erros }}</span>
+        <span class="badge bgroxo">{{ q.percentual }}%</span>
+    </div>
+    <table class="tabela">
+        <tr>
+            <th>Aluno</th>
+            <th>Resposta</th>
+            <th>Status</th>
+        </tr>
+        {% for r in respostas %}
+            {% if r.questao.id == q.id %}
+            <tr>
+                <td>{{ r.aluno_nome|title }}</td>
+<td>
+    {% if r.questao.tipo == 'aberta' %}
+        <div>{{ r.texto_resposta }}</div>
+    {% else %}
+        <div>
+            {% for alt in r.respostas_marcadas %}
+                <span class="badge bgazul">{{ alt.letra }}) {{ alt.texto }}</span>
+            {% empty %}
+                <span class="cinza">Não respondeu</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+</td>
+<td>
+    {% if not r.avaliavel %}
+        <span class="cinza">Não Avaliada</span>
+    {% else %}
+        {% if r.correta %}
+            <span class="verde">✔ Acertou</span>
+        {% else %}
+            <span class="vermelho">✘ Errou</span>
+        {% endif %}
+    {% endif %}
+</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}
+<div class="card">
+    <h2>Acertos e Erros por Questão</h2>
+    <canvas id="graficoQuestoes"></canvas>
+</div>
+<div class="card">
+    <h2>Desempenho dos Alunos</h2>
+    <canvas id="graficoAlunos"></canvas>
+</div>
+
+<script>
+const dadosQuestoes = JSON.parse('{{ dados_questoes_json|escapejs }}');
+
+new Chart(
+    document.getElementById('graficoQuestoes'),
+    {
+        type: 'bar',
+        data: {
+            labels: dadosQuestoes.map(x => x.texto),
+            datasets: [
+                {
+                    label: 'Acertos',
+                    data: dadosQuestoes.map(x => x.acertos),
+                    backgroundColor: '#00ff00'
+                },
+                {
+                    label: 'Erros',
+                    data: dadosQuestoes.map(x => x.erros),
+                    backgroundColor: '#ff0000'
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ffffff'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#ffffff'
+                    },
+                    grid: {
+                        color: '#444'
+                    }
+                },
+y: {
+    beginAtZero: true,
+    ticks: {
+        color: '#ffffff',
+        stepSize: 1,
+        precision: 0
+    },
+                    grid: {
+                        color: '#444'
+                    }
+                }
+            }
+        }
+    }
+);
+
+const alunos = JSON.parse('{{ dados_alunos_json|escapejs }}');
+
+new Chart(
+    document.getElementById('graficoAlunos'),
+    {
+        type: 'bar',
+        data: {
+            labels: Object.keys(alunos),
+            datasets: [
+                {
+                    label: 'Acertos',
+                    data: Object.values(alunos).map(
+                        x => x.acertos
+                    ),
+                    backgroundColor: '#00ff00'
+                },
+                {
+                    label: 'Erros',
+                    data: Object.values(alunos).map(
+                        x => x.erros
+                    ),
+                    backgroundColor: '#ff0000'
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ffffff'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#ffffff'
+                    },
+                    grid: {
+                        color: '#444'
+                    }
+                },
+y: {
+    beginAtZero: true,
+    ticks: {
+        color: '#ffffff',
+        stepSize: 1,
+        precision: 0
+    },
+                    grid: {
+                        color: '#444'
+                    }
+                }
+            }
+        }
+    }
+);
+
+setTimeout(function(){location.reload();}, 10000);
+</script>
+
+<style>
+.tabela{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.tabela th, .tabela td{
+    border:1px solid #333;
+    padding:10px;
+}
+
+.verde{
+    color:#4caf50;
+    font-weight:bold;
+}
+
+.vermelho{
+    color:#f44336;
+    font-weight:bold;
+}
+
+.bgverde{
+    background:#4caf50;
+}
+
+.bgvermelho{
+    background:#f44556;
+}
+
+
+.bgazul{
+    background:#2196f3;
+}
+
+.bgroxo{
+    background:#9c27b0;
+}
+
+.cinza{
+    color:#aaa;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    margin:4px;
+    border-radius:6px;
+    color:#fff;
+}
+
+.metricas{
+    margin-bottom:15px;
+}
+
+canvas{
+    margin-top:20px;
+}
+</style>
+{% endblock %}

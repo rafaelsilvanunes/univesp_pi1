@@ -1,0 +1,8 @@
+#Instalacao:
+#Chamando este arquivo: pip install -r requirements.txt
+#Convencional: pip install django qrcode pillow json
+
+django
+qrcode
+pillow
+json
