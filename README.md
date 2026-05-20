@@ -13,8 +13,8 @@ Desenvolver e validar um **protótipo funcional** de aplicação web que permita
 - apresentar resultados consolidados imediatamente (inclusive para projeção);
 - registrar respostas em banco de dados para consulta e análise posteriores.
 
-## Escopo (MVP)
-O MVP contempla:
+## Escopo
+O Produto Mínimo Viável (MVP) contempla:
 1. Criação de turma/sessão;
 2. Publicação de pergunta (múltipla escolha e/ou resposta curta);
 3. Resposta do aluno via interface mobile (web responsivo);
@@ -28,9 +28,9 @@ Para o teste real em sala de aula foi utilizado a seguinte estrutura:
 - Frontend: HTML + CSS + JS;
 - Banco de dados: PostgreSQL.
 
-## Quer realizar o teste da POC?
+## Quer realizar o teste do MVP?
 Siga esses passos:
-- A POC está em funcionamento no endereço https://157.151.14.23.nip.io/ visite o portal;
+- O MVP está em funcionamento no endereço https://157.151.14.23.nip.io/ visite o portal;
 - Solicite a criação do login professor pelo e-mail rafaelsilv@gmail.com enviando nome, instituição, cidade e email (se diferente);
 - Crie as salas e questões como professor;
 - Utilize o login como aluno ou disponibilize o qrcode para acesso a sala;
