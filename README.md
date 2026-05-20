@@ -15,15 +15,16 @@ Desenvolver e validar um **protótipo funcional** de aplicação web que permita
 
 ## Escopo
 O Produto Mínimo Viável (MVP) contempla:
-1. Criação de turma/sessão;
-2. Publicação de pergunta (múltipla escolha e/ou resposta curta);
-3. Resposta do aluno via interface mobile (web responsivo);
-4. Painel do professor com resultados ao vivo (contagens/percentuais e/ou lista);
-5. Persistência e consulta básica do histórico por sessão/pergunta.
+- Criação de salas;
+- Acesso do Aluno a sala por QRCode;
+- Publicação de pergunta (múltipla escolha e/ou resposta curta);
+- Resposta do aluno via interface mobile (web responsivo);
+- Painel do professor com resultados ao vivo (contagens, percentuais e lista);
+- Persistência e consulta básica do histórico da sala e do aluno.
 
 ## Tecnologias Utilizadas
 Para o teste real em sala de aula foi utilizado a seguinte estrutura:
-- Hospedagem: Oracle Cloud - Instancia AMD, 1gb ram, Oracle Linux e SSL;
+- Hospedagem Oracle Cloud: Instância AMD, 1Gb RAM, Oracle Linux e SSL;
 - Backend: Django + Gunicorn + Nginx;
 - Frontend: HTML + CSS + JS;
 - Banco de dados: PostgreSQL.
@@ -33,6 +34,6 @@ Siga esses passos:
 - O MVP está em funcionamento no endereço https://157.151.14.23.nip.io/ visite o portal;
 - Solicite a criação do login professor pelo e-mail rafaelsilv@gmail.com enviando nome, instituição, cidade e email (se diferente);
 - Crie as salas e questões como professor;
-- Utilize o login como aluno ou disponibilize o qrcode para acesso a sala;
+- Para responder deve acessar a opção Aluno na home ou via QRCode disponibilizado pelo professor (gerado ao criar a sala);
 - Lembre que a chave unica é o nome do aluno então utilize RA para evitar duplicidade;
 - A revisita apresenta o resultado.
